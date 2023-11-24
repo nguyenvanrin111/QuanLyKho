@@ -1,0 +1,108 @@
+﻿<Window x:Class="Quanlybanhang.CategoryWindown"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Quanlybanhang"
+        mc:Ignorable="d"
+        
+         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:uc="clr-namespace:Quanlybanhang.UserControlQL"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         TextElement.FontWeight="Regular"
+         TextElement.FontSize="13"
+         TextOptions.TextFormattingMode="Ideal"
+         TextOptions.TextRenderingMode="Auto"
+         Background="{DynamicResource MaterialDesignPaper}"
+         FontFamily="{DynamicResource MaterialDesignFont}"
+         DataContext="{StaticResource CateVM}"
+         ResizeMode="NoResize"
+         WindowStyle="None"
+         x:Name="windown"
+        Title="Loại Sản Phẩm" Height="450" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <uc:ControlBarUC Tag="{Binding Title,ElementName=windown}"></uc:ControlBarUC>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--Cac Element Binding tu Selected Item-->
+            <materialDesign:Card Grid.Row="0" Margin="5">
+                <WrapPanel >
+
+
+                    <TextBox Width="150"
+                             Margin="5 5 15 5"
+                             Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             materialDesign:HintAssist.Hint="Tên"
+                             
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <!--Cac Button Them, Xoa, Sua-->
+            <materialDesign:Card Grid.Row="1" Margin="5">
+                <WrapPanel HorizontalAlignment="Center">
+                    <Button Command="{Binding AddCommand}" Margin="5" Content="Thêm" Width="100"></Button>
+                    <Button Command="{Binding EditCommand}" Margin="5" Content="Sửa" Width="100"></Button>
+                    <Button Command="{Binding DeleteCommand}" Margin="5" Content="Xoá" Width="100"></Button>
+                </WrapPanel>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="2" VerticalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0"
+                             Margin="5"
+                                 Width="100"
+                             
+                             materialDesign:HintAssist.Hint="Tên"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                        <Grid Grid.Column="1">
+                            <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                                            Width="100"
+                                            HorizontalAlignment="Left"
+                                            ToolTip="Resource name: MaterialDesignRaisedLightButton"
+                                            Content="Lọc"
+                                            Margin="8">
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ListView  ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                    <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+                                    
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </ScrollViewer>
+
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window>
